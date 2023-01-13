@@ -9,3 +9,6 @@ Arguments:
 - line number to stop
 
 `./csv2speech.sh example.csv 1 5`
+
+##Find the right voice
+The command `say -v '?'` will list you all available voices on your system
