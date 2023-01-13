@@ -46,9 +46,9 @@ awk -F, 'NR=='$START' ,NR=='$END' { print $1","$2}' $INPUT_FILE>"${TMP_FOLDER}/$
 
 while read col1 col2    #read both columns from temp file
 do
-    say -v Anna $COUNTER"[[ slnc 1000 ]]" $col1 "[[ slnc 1000 ]]" -o "${TMP_FOLDER}/$(printf %05d $FILECOUNT).${COUNTER}.lang1.aiff"
+    say -v $VOICE_1 $COUNTER"[[ slnc 1000 ]]" $col1 "[[ slnc 1000 ]]" -o "${TMP_FOLDER}/$(printf %05d $FILECOUNT).${COUNTER}.lang1.aiff"
     let FILECOUNT+=1
-    say -v Kanya $col2 "[[ slnc 7000 ]] "  -o "${TMP_FOLDER}/$(printf %05d $FILECOUNT).${COUNTER}.lang2.aiff"
+    say -v $VOICE_2 $col2 "[[ slnc 5000 ]] "  -o "${TMP_FOLDER}/$(printf %05d $FILECOUNT).${COUNTER}.lang2.aiff"
     let FILECOUNT+=1
     let COUNTER+=1
 done< "${TMP_FOLDER}/${TMP_FILE}"
