@@ -1,0 +1,6 @@
+.DS_Store
+*.wav
+*.aiff
+*.mp3
+tmp*
+
