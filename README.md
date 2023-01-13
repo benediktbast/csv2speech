@@ -12,9 +12,11 @@ Arguments:
 - output format (optional) can be set to `mp3` if you have ffmpeg installed
 
 You can use the example CSV file with German and Thai Translation to convert lines 1 to 7
+
 `./csv2speech.sh example_de_th.csv Anna Kanya 1 7`
 
 with conversion to mp3
+
 `./csv2speech.sh example_de_th.csv Anna Kanya 1 7 mp3`  
 
 ## Find the right voice
