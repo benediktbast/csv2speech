@@ -23,4 +23,4 @@ The following effect tags can be used also in the csv file to modulate the speec
 * `[[rate 150]]` changes the speed
 * `[[pbas 50]]` changes the pitch.
 * `[[ rset ]]` resets all these parameters to default
-* `‘word’` :quotes also put the emphasis on the word.
+* `‘word’` quotes also put the emphasis on the word.
