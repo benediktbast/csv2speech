@@ -1,8 +1,8 @@
-#CSV to speech converter
+# CSV to speech converter
 
 Requires MAC OS say command, sox, and ffmpeg if you want to convert the output to mp3
 
-##Usage
+## Usage
 Arguments:
 - name of csv file
 - line number to start
@@ -10,5 +10,5 @@ Arguments:
 
 `./csv2speech.sh example.csv 1 5`
 
-##Find the right voice
+## Find the right voice
 The command `say -v '?'` will list you all available voices on your system
