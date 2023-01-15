@@ -19,14 +19,15 @@ fi
 
 INPUT_FILE=$1       #arg1 =  path to csv file
 INPUT_FILE_TRIMMED=$(echo "$INPUT_FILE" | cut -f 1 -d '.')
+INPUT_FILE_LENGTH=$(cat "$INPUT_FILE" | wc -l | xargs) 
 
-VOICE_1=$2
-VOICE_2=$3
+START=1                 #line to start (default=1)
+END=$INPUT_FILE_LENGTH   #line to end (default=last line in input file)
 
-START=$4            #line to start
-END=$5              #line to end
+VOICE_1=$2          #arg2 = voice for language 1
+VOICE_2=$3          #arg3 = voice for language 2
 
-OUTPUT_FORMAT=$6
+OUTPUT_FORMAT=$4    #arg4 = optional output format [mp3]
 
 FILECOUNT=1
 COUNTER=$START      #counter caounts from start value
@@ -40,6 +41,8 @@ TMP_FILE="input-${START}-${END}.csv"   #temp csv file for parsing
 
 rm -rf ${TMP_FOLDER}    #delete old tempfolder if needed
 mkdir -p ${TMP_FOLDER}  #create temp folder
+
+echo "Parsing $(($END-$START+1)) lines from ${INPUT_FILE}"
  
 #create parsed csv file with only the first two columns and the sleceted rows
 awk -F, 'NR=='$START' ,NR=='$END' { print $1","$2}' $INPUT_FILE>"${TMP_FOLDER}/${TMP_FILE}"
@@ -57,7 +60,8 @@ IFS=$IFS_DEFAULT
 
 sox $(ls ${TMP_FOLDER}/*.aiff | sort -n) "${INPUT_FILE_TRIMMED}-${START}-${END}.wav"
 
-if [[ "$6" = "mp3" ]]
+if [[ "$OUTPUT_FORMAT" = "mp3" ]]
 then 
     ffmpeg -i "${INPUT_FILE_TRIMMED}-${START}-${END}.wav" "${INPUT_FILE_TRIMMED}-${START}-${END}.mp3"
+    rm "${INPUT_FILE_TRIMMED}-${START}-${END}.wav"
 fi

@@ -7,17 +7,15 @@ Arguments:
 - name of csv file
 - name of voice 1
 - name of voice 2
-- line number to start
-- line number to stop
 - output format (optional) can be set to `mp3` if you have ffmpeg installed
 
-You can use the example CSV file with German and Thai Translation to convert lines 1 to 7
+You can use the example CSV file with English and Thai Translation to convert
 
-`./csv2speech.sh example_de_th.csv Daniel Kanya 1 12`
+`./csv2speech.sh example_en_th.csv Daniel Kanya`
 
 with conversion to mp3
 
-`./csv2speech.sh example_de_th.csv Daniel Kanya 1 12 mp3`  
+`./csv2speech.sh example_en_th.csv Daniel Kanya mp3`  
 
 ## Find the right voice
 The command `say -v '?'` will list you all available voices on your system
