@@ -1,9 +1,10 @@
 #!/bin/bash
 
-
 RED=$'\e[1;31m'
 GREEN=$'\e[1;32m'
 DEFAULT_COLOR=$'\e[0m'
+
+REGEX_INT='^[0-9]$'
 
 if [[ -z "$1" ]]
 then
@@ -21,8 +22,30 @@ INPUT_FILE=$1       #arg1 =  path to csv file
 INPUT_FILE_TRIMMED=$(echo "$INPUT_FILE" | cut -f 1 -d '.')
 INPUT_FILE_LENGTH=$(cat "$INPUT_FILE" | wc -l | xargs) 
 
-START=1                 #line to start (default=1)
-END=$INPUT_FILE_LENGTH   #line to end (default=last line in input file)
+read -p "Line to start (default 1): " START
+
+if [[ -z "$START" ]]
+then
+    START=1                 #line to start (default=1)
+#check for integer and input > 0
+elif [[ ! $START =~ $REGEX_INT ]] || [[ $START -lt 1 ]]
+then
+    echo "${RED}Invalid input$DEFAUL_COLOR"
+    exit 2
+fi
+
+read -p "Line to end (default ${INPUT_FILE_LENGTH}): " END
+
+if [[ -z "$END" ]]
+then
+    END=$INPUT_FILE_LENGTH   #line to end (default=last line in input file)
+#check for integer and input <= input file length
+elif [[ ! $END =~ $REGEX_INT ]] || [[ $START -gt $INPUT_FILE_LENGTH ]]
+then
+    echo "${RED}Invalid input$DEFAUL_COLOR"
+    exit 2
+fi
+
 
 VOICE_1=$2          #arg2 = voice for language 1
 VOICE_2=$3          #arg3 = voice for language 2
@@ -42,7 +65,7 @@ TMP_FILE="input-${START}-${END}.csv"   #temp csv file for parsing
 rm -rf ${TMP_FOLDER}    #delete old tempfolder if needed
 mkdir -p ${TMP_FOLDER}  #create temp folder
 
-echo "Parsing $(($END-$START+1)) lines from ${INPUT_FILE}"
+echo "${GREEN}Parsing $(($END-$START+1)) lines from ${INPUT_FILE}$DEFAULT_COLOR"
  
 #create parsed csv file with only the first two columns and the sleceted rows
 awk -F, 'NR=='$START' ,NR=='$END' { print $1","$2}' $INPUT_FILE>"${TMP_FOLDER}/${TMP_FILE}"
@@ -62,6 +85,6 @@ sox $(ls ${TMP_FOLDER}/*.aiff | sort -n) "${INPUT_FILE_TRIMMED}-${START}-${END}.
 
 if [[ "$OUTPUT_FORMAT" = "mp3" ]]
 then 
-    ffmpeg -i "${INPUT_FILE_TRIMMED}-${START}-${END}.wav" "${INPUT_FILE_TRIMMED}-${START}-${END}.mp3"
+    ffmpeg -hide_banner -loglevel error -i "${INPUT_FILE_TRIMMED}-${START}-${END}.wav" "${INPUT_FILE_TRIMMED}-${START}-${END}.mp3"
     rm "${INPUT_FILE_TRIMMED}-${START}-${END}.wav"
 fi
