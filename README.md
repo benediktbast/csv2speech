@@ -13,11 +13,11 @@ Arguments:
 
 You can use the example CSV file with German and Thai Translation to convert lines 1 to 7
 
-`./csv2speech.sh example_de_th.csv Anna Kanya 1 7`
+`./csv2speech.sh example_de_th.csv Daniel Kanya 1 12`
 
 with conversion to mp3
 
-`./csv2speech.sh example_de_th.csv Anna Kanya 1 7 mp3`  
+`./csv2speech.sh example_de_th.csv Daniel Kanya 1 12 mp3`  
 
 ## Find the right voice
 The command `say -v '?'` will list you all available voices on your system
