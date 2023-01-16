@@ -20,6 +20,8 @@ with conversion to mp3
 ## Find the right voice
 The command `say -v '?'` will list you all available voices on your system
 
+I highly recommend to install enhanced voices to your system like `Jamie (Premium)` or `Zoey (Premium)` for english or `Narisa (Enhanced)` for Thai
+
 ## Modulating the speech
 
 The following effect tags can be used also in the csv file to modulate the speech more natural
